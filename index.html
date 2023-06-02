@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <title>BlackJack</title>
+</head>
+<body>
+    <!-- Game Table -->
+    <div class="container-fluid py-5 game-table">
+        <div class="row h-100">
+            <div class="col">
+                <div class="d-flex flex-column h-100">
+                    <div class="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+                        <h1 class="text-white">Bet</h1>
+                        <button type="button" id="bet" class="py-2 px-4 fs-3 bet-btn" data-bs-toggle="modal"
+                                data-bs-target="#betModal">$0
+                        </button>
+                    </div>
+                    <div class="flex-grow-0">
+                        <div class="chips text-center">
+                            <img src="images/chips.png">
+                            <span class="text-danger fs-1 ms-1 chips-balance">$1000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="d-flex flex-column justify-content-between h-100">
+                    <div class="dealer-cards"></div>
+                    <div class="player-cards"></div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="d-flex flex-column h-100">
+                    <div class="flex-grow-1 d-flex flex-column justify-content-around">
+                        <div class="text-success h1"><span class="dealer-sum">0</span> Dealer</div>
+                        <div class="text-success h1"><span class="player-sum">0</span> Player</div>
+                    </div>
+                    <div class="flex-grow-0">
+                        <div class="d-grid gap-4 col-4 mx-auto">
+                            <button id="hit" class="btn btn-outline-success fw-bolder btn-lg" type="button">Hit</button>
+                            <button id="stand" class="btn btn-outline-success fw-bolder btn-lg" type="button">Stand
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Game Table -->
+    <!-- Start Screen Modal -->
+    <div class="modal fade" id="startModal" tabindex="-1" aria-labelledby="startModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content start-modal">
+                <div class="start-modal-body"></div>
+                <div class="start-modal-footer">
+                    <div class="text-center">
+                        <h1 class="display-3 text-white fw-bold">You gambled all the money away!</h1>
+                        <button type="button" id="new-game-btn" class="btn btn-success btn-lg">New Game!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- End Start Screen Modal -->
+    <!-- message Modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-transparent border-0">
+                <div class="modal-body text-center display-1 fw-bold message-el"></div>
+            </div>
+        </div>
+    </div>
+    <!-- End message Modal -->
+    <!-- Bet Modal -->
+    <div class="modal fade" id="betModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="betModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-body-secondary">
+                <div class="modal-body">
+                    <div class="row g-5">
+                        <div class="col-12 text-center display-4 fw-bold chips-balance">$1000</div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <label class="fs-3 fw-bold">Bit</label>
+                                    <input type="text" id="bitInput" placeholder="$0" readonly
+                                           class="form-control form-control-lg w-50 mx-auto text-center fs-4">
+                                </div>
+                                <div class="col betting-chips">
+                                    <img data-value="10" src="images/10_chip.svg">
+                                    <img data-value="20" src="images/20_chip.svg">
+                                    <img data-value="50" src="images/50_chip.svg">
+                                    <img data-value="100" src="images/100_chip.svg">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="button" id="placeBetBtn" class="btn btn-lg btn-secondary">Place Bet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Bet Modal -->
+    <!-- Rules Modal -->
+    <button id="rules" class="btn btn-outline-success fw-bolder btn-lg" type="button"
+            data-bs-toggle="modal" data-bs-target="#rulesModal">Rules
+    </button>
+    <div class="modal fade" id="rulesModal" tabindex="-1" aria-labelledby="rulesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content text-bg-secondary opacity-75">
+                <div class="modal-header fw-bolder">
+                    <h1 class="modal-title fs-5" id="rulesModalLabel">Blackjack</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center fw-semibold">
+                    <p>The aim of blackjack is to finish the game with a higher total than that of the dealer, without
+                        exceeding 21. Going over 21 is commonly known as ‘busting’ and means an automatic loss.</p>
+
+                    <p>All number cards (2-10) score the value indicated on them. The face cards (Jack, Queen, King)
+                        score 10 points and Ace value is 11 unless this would cause the player to bust, in which case it
+                        is worth 1.</p>
+
+                    <p>You can either ‘hit’ or ‘stand’. If you click ‘hit’, you are given an extra card. if you do
+                        not wish to draw any more cards click ‘STAND’. you can ‘HIT’ as many times as you wish, but
+                        have to aim not to ‘bust’ (exceed a total of 21).</p>
+                    <p>Good luck!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Rules Modal -->
+    <script src="js/app.js"></script>
+</body>
+</html>
